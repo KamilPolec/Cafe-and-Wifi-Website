@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Co-fi</title>
+    {% block styles %}
+    <style>
+        {{ bootstrap.load_css() }}
+        body {
+      margin: 0;
+      padding: 0;
+    }
+        table {
+      border-collapse: collapse;
+      border: 2px solid rgb(200,200,200);
+      letter-spacing: 1px;
+      font-size: 0.8rem;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+        td, th {
+      border: 1px solid rgb(190,190,190);
+      padding: 10px 20px;
+    }
+        td {
+      text-align: center;
+    }
+        #add {
+        margin-left: 10px;
+        }
+    </style>
+    {% endblock %}
+</head>
+<body>
+<table class="table">
+    <thead>
+        <tr>
+            {% for col_name in col_names %}
+            <th scope="col">{{ col_name }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for cafe in cafes %}
+        <tr>
+            <td scope="row">{{ cafe.id }}</td>
+            <td scope="row">{{ cafe.name }}</td>
+            <td scope="row"><a href="{{cafe.map_url}}">map url</a></td>
+            <td scope="row"><a href="{{cafe.img_url}}">img url</a></td>
+            <td scope="row">{{ cafe.location }}</td>
+            <td scope="row">{{ cafe.has_sockets }}</td>
+            <td scope="row">{{ cafe.has_toilet }}</td>
+            <td scope="row">{{ cafe.has_wifi }}</td>
+            <td scope="row">{{ cafe.can_take_calls }}</td>
+            <td scope="row">{{ cafe.seats }}</td>
+            <td scope="row">{{ cafe.coffee_price }}</td>
+            <td scope="row"><a href="{{url_for('delete', cafe_name=cafe.name)}}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('add_cafe') }}" id="add">Add entry</a>
+</body>
+</html>
